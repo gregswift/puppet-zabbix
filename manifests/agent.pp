@@ -1,6 +1,8 @@
-class zabbix::agent inherits zabbix {
+class zabbix::agent (
+  $version_modifier = ''
+) inherits zabbix {
 
-  package { 'zabbix-agent':
+  package { "zabbix${version_modifier}-agent":
     ensure => installed,
   }
 
