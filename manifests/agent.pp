@@ -4,7 +4,7 @@ class zabbix::agent inherits zabbix {
     ensure => installed,
   }
 
-  service { zabbix-agent:
+  service { 'zabbix-agent':
     enable => true,
     ensure => running,
     hasrestart => true,
