@@ -2,19 +2,19 @@ class zabbix::server (
   $database = undef,
   $version_modifier = '',
 ) inherits zabbix {
-
+    $type = 'server'
     case $database {
         'mysql': {
-            $zbxsvr_pkg_names = ["zabbix${version_modifier}", "zabbix${version_modifier}-mysql"]
+            $zbxsvr_pkg_names = ["zabbix${version_modifier}-${type}", "zabbix${version_modifier}-${type}-mysql"]
         }
         'pgsql': {
-            $zbxsvr_pkg_names = ["zabbix${version_modifier}", "zabbix${version_modifier}-pgsql"]
+            $zbxsvr_pkg_names = ["zabbix${version_modifier}-${type}", "zabbix${version_modifier}-${type}-pgsql"]
         }
         'sqlite': {
-            $zbxsvr_pkg_names = ["zabbix${version_modifier}", "zabbix${version_modifier}-sqlite3"]
+            $zbxsvr_pkg_names = ["zabbix${version_modifier}-${type}", "zabbix${version_modifier}-${type}-sqlite3"]
         }
         default: {
-            $zbxsvr_pkg_names = ["zabbix${version_modifier}"]
+            $zbxsvr_pkg_names = ["zabbix${version_modifier}-${type}"]
         }
     }
 
