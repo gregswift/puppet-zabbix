@@ -52,8 +52,8 @@ define zabbix::agent::config (
   zabbix::config { $title:
     ensure   => $ensure,
     value    => $value,
-    $type    => 'agent',
-    $context => $context,
+    type    => 'agent',
+    context => $context,
   }
 
 }

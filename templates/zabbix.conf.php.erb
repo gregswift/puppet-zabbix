@@ -1,0 +1,19 @@
+<?php
+// Zabbix GUI configuration file
+global $DB;
+
+$DB["TYPE"]                     = 'POSTGRESQL';
+$DB["SERVER"]                   = '<%= dbhost %>';
+$DB["PORT"]                     = '5432';
+$DB["DATABASE"]                 = '<%= dbname %>';
+$DB["USER"]                     = '<%= dbuser %>';
+$DB["PASSWORD"]                 = '<%= dbpassword %>';
+// SCHEMA is relevant only for IBM_DB2 database
+$DB["SCHEMA"]                   = '';
+
+$ZBX_SERVER                             = 'localhost';
+$ZBX_SERVER_PORT                = '10051';
+$ZBX_SERVER_NAME                = 'CI Zabbix';
+
+$IMAGE_FORMAT_DEFAULT   = IMAGE_FORMAT_PNG;
+?>
