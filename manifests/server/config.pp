@@ -4,11 +4,9 @@
 # Edit a setting in a zabbix server config file
 #
 #
-# === IMPORTANT
-#
-# You must add any file you want to reference into modules/sudo/files
-# other wise any call to this definition will fail.
-#
+# === Title
+# The title you provide should match the configuration parameter
+# you are trying to configure.
 #
 # === Parameters
 #
@@ -26,8 +24,9 @@
 # * This is thus destructive and should be used with care.
 # Defaults to <tt>present</tt>.
 #
-# [*type*]
-# String. Has to be either 'server', 'proxy' or 'server'
+# [*value*]
+# String. Contains the value you would like the configuration parameter
+# to be set to.
 #
 # === Examples
 #

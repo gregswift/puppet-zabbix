@@ -6,11 +6,9 @@
 # this resource
 #
 #
-# === IMPORTANT
-#
-# You must add any file you want to reference into modules/sudo/files
-# other wise any call to this definition will fail.
-#
+# === Title
+# The title you provide should match the configuration parameter
+# you are trying to configure.
 #
 # === Parameters
 #
@@ -28,8 +26,9 @@
 # * This is thus destructive and should be used with care.
 # Defaults to <tt>present</tt>.
 #
-# [*type*]
-# String. Has to be either 'server', 'proxy' or 'agent'
+# [*value*]
+# String. Contains the value you would like the configuration parameter
+# to be set to.
 #
 # === Examples
 #
@@ -52,8 +51,8 @@ define zabbix::agent::config (
   zabbix::config { $title:
     ensure   => $ensure,
     value    => $value,
-    type    => 'agent',
-    context => $context,
+    type     => 'agent',
+    context  => $context,
   }
 
 }

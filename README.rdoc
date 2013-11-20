@@ -1,0 +1,37 @@
+= zabbix
+The goal of this module is to provide a good Zabbix module that:
+
+* Supports multiple database backends
+* Configures DM (Distributed masters)
+* Configuring zabbix (templates, items, hosts, etc) via custom types and functions
+* Configures agent for active and/or passive checks
+
+---
+== Usage of Module
+
+=== Configure zabbix server to use a local postgresql db
+Includes enabling some users that work with ldap enabled web ui
+
+  class { 'zabbix::server':
+      dbhost     => 'localhost',
+      dbname     => 'zabbix',
+      dbuser     => 'zabbix',
+      dbpassword => 'zabbixdbpassword',
+      users      => ['bob', 'sue'],
+  }
+
+=== Configure an agent to talk to main zabbix server
+  class { 'zabbix::agent':
+      servers => [ 'zabbix.example.com' ],
+  }
+
+---
+== Implementing this module...
+
+=== From github
+ git clone git://github.com/gregswift/puppet-zabbix.git /etc/puppet/modules/zabbix
+
+---
+== Authors
+[Greg Swift] mailto:gregswift@gmail.com
+[Tony Rogers] mailto:tony@tonyrogers.me
