@@ -1,12 +1,12 @@
 class zabbix::agent (
   $version_modifier = '20',
   $zabbix_endpoint = '',
-  $servers = ''
+  $servers = []
 ) inherits zabbix {
   if $zabbix_endpoint != '' {
-    $zabbix_servers = $zabbix_endpoint
+    $servers_real = [$zabbix_endpoint]
   } else {
-    $zabbix_servers = $servers
+    $servers_real = $servers
   }
   package { "zabbix-agent":
     name => "zabbix${version_modifier}-agent",
