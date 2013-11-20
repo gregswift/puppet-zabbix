@@ -4,9 +4,9 @@ class zabbix::agent (
   $servers = ''
 ) inherits zabbix {
   if $zabbix_endpoint != '' {
-    if $servers == '' {
-      $servers = $zabbix_endpoint
-    }
+    $zabbix_servers = $zabbix_endpoint
+  } else {
+    $zabbix_servers = $servers
   }
   package { "zabbix-agent":
     name => "zabbix${version_modifier}-agent",
