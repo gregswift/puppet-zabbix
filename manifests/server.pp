@@ -1,10 +1,11 @@
 class zabbix::server (
   $database = undef,
-  $version_modifier = '',
-  $dbhost = 'dbinfra-n01.staging.ord1.us.ci.rackspace.net',
-  $dbname = 'zabbix',
-  $dbuser = 'zabbix',
-  $dbpassword = 'Swacr4d6',
+  $version_modifier = '20',
+  $dbhost = '',
+  $dbpassword = '',
+  $dbuser = '',
+  $dbname = '',
+  $users = '', 
 ) inherits zabbix {
     $type = 'server'
     case $database {
@@ -78,4 +79,5 @@ class zabbix::server (
      content => template('zabbix/zabbix.conf.php.erb'),
      notify  => Service['httpd'],
    }
+   zabbix_syncusers($users,$::environment)
 }
