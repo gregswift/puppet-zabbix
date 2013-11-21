@@ -1,8 +1,13 @@
 class zabbix::agent (
-  $version_modifier = '',
+  $version_modifier = '20',
   $zabbix_endpoint = '',
+  $servers = [],
 ) inherits zabbix {
-
+  if $zabbix_endpoint != '' {
+    $servers_real = [$zabbix_endpoint]
+  } else {
+    $servers_real = $servers
+  }
   package { "zabbix-agent":
     name => "zabbix${version_modifier}-agent",
     ensure => installed,
