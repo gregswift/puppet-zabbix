@@ -1,11 +1,18 @@
 class zabbix::server (
   $database = undef,
-  $version_modifier = '',
-  $dbhost = 'dbinfra-n01.staging.ord1.us.ci.rackspace.net',
-  $dbname = 'zabbix',
-  $dbuser = 'zabbix',
-  $dbpassword = 'Swacr4d6',
+  $version_modifier = '20',
+  $credentialid = '',
+  $projectid = '',
 ) inherits zabbix {
+    include passwordsafe
+    $dbpassword = pwsafe_lookup($projectid, $credentialid, 'password')
+    $dbuser = pwsafe_lookup($projectid, $credentialid, 'username')
+    # url should look like: http://dbinfra-n01.staging.ord1.us.ci.rackspace.net/zabbix_staging_us
+    # next line splits the url string into hostname and dbname.
+    $host_parts = split(regsubst(pwsafe_lookup($projectid, $credentialid, 'url'),'^http://',''),'/')
+    $dbhost = $host_parts[0]
+    $dbname = $host_parts[1]
+
     $type = 'server'
     case $database {
         'mysql': {
