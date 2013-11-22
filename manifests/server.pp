@@ -65,5 +65,4 @@ class zabbix::server (
      content => template('zabbix/zabbix.conf.php.erb'),
      notify  => Service['httpd'],
    }
-   zabbix_syncusers($users,$::environment)
 }
