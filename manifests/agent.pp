@@ -2,7 +2,7 @@ class zabbix::agent (
   $version_modifier = '20',
   $zabbix_endpoint = '',
   $servers = [],
-  $endpoint = '';
+  $endpoint = '',
 ) inherits zabbix {
   if $zabbix_endpoint != '' {
     $servers_real = [$zabbix_endpoint]
