@@ -28,6 +28,6 @@ class zabbix::agent (
     content => template('zabbix/zabbix_agentd.conf.erb'),
     notify  => Service['zabbix-agent']
   }
-  zabbix_host($fqdn,$environment)
-
+  $endpoint = "${::env}-${::region}-${::dc}"
+  zabbix_host($fqdn,$endpoint)
 }
