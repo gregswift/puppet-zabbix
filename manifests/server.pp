@@ -10,9 +10,8 @@ class zabbix::server (
 
     $zbxsvr_pkg_names = ["zabbix${version_modifier}-server", "zabbix${version_modifier}-server-${database}", "zabbix${version_modifier}-web-${database}"]
 
-    package { 'zabbix-server':
-        name => $zbxsvr_pkg_names,
-        ensure => installed,
+    package { $zbxsvr_pkg_names:
+        ensure => latest,
     }
 
     service { 'zabbix-server':
