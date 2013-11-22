@@ -2,6 +2,7 @@ class zabbix::agent (
   $version_modifier = '20',
   $zabbix_endpoint = '',
   $servers = [],
+  $endpoint = '';
 ) inherits zabbix {
   if $zabbix_endpoint != '' {
     $servers_real = [$zabbix_endpoint]
@@ -28,6 +29,5 @@ class zabbix::agent (
     content => template('zabbix/zabbix_agentd.conf.erb'),
     notify  => Service['zabbix-agent']
   }
-  zabbix_host($fqdn,$environment)
-
+  zabbix_host($fqdn,$endpoint)
 }
