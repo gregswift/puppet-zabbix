@@ -6,6 +6,7 @@ class zabbix::server (
   $dbuser = '',
   $dbname = '',
   $users = '', 
+  $endpoint = "${::env}-${::region}-${::dc}",
 ) inherits zabbix {
 
     $zbxsvr_pkg_names = ["zabbix${version_modifier}-server", "zabbix${version_modifier}-server-${database}", "zabbix${version_modifier}-web-${database}"]
@@ -65,6 +66,5 @@ class zabbix::server (
      content => template('zabbix/zabbix.conf.php.erb'),
      notify  => Service['httpd'],
    }
-   $endpoint = "${::env}-${::region}-${::dc}"
    zabbix_syncusers($users,$endpoint)
 }
