@@ -6,7 +6,7 @@ class zabbix::server (
   $dbuser = '',
   $dbname = '',
   $users = '', 
-  $endpoint = "${::env}-${::region}-${::dc}",
+  $endpoint = '',
 ) inherits zabbix {
 
     $zbxsvr_pkg_names = ["zabbix${version_modifier}-server", "zabbix${version_modifier}-server-${database}", "zabbix${version_modifier}-web-${database}"]
