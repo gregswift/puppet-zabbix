@@ -7,21 +7,8 @@ class zabbix::server (
   $dbname = '',
   $users = '', 
 ) inherits zabbix {
-    $type = 'server'
-    case $database {
-        'mysql': {
-            $zbxsvr_pkg_names = ["zabbix${version_modifier}-${type}", "zabbix${version_modifier}-${type}-mysql"]
-        }
-        'pgsql': {
-            $zbxsvr_pkg_names = ["zabbix${version_modifier}-${type}", "zabbix${version_modifier}-${type}-pgsql"]
-        }
-        'sqlite': {
-            $zbxsvr_pkg_names = ["zabbix${version_modifier}-${type}", "zabbix${version_modifier}-${type}-sqlite3"]
-        }
-        default: {
-            $zbxsvr_pkg_names = ["zabbix${version_modifier}-${type}"]
-        }
-    }
+
+    $zbxsvr_pkg_names = ["zabbix${version_modifier}-server", "zabbix${version_modifier}-server-${database}", "zabbix${version_modifier}-web-${database}"]
 
     package { 'zabbix-server':
         name => $zbxsvr_pkg_names,
