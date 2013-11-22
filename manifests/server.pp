@@ -1,5 +1,5 @@
 class zabbix::server (
-  $database = undef,
+  $database = 'pgsql',
   $version_modifier = '20',
   $dbhost = '',
   $dbpassword = '',
