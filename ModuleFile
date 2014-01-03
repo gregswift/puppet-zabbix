@@ -1,0 +1,4 @@
+name 'xaeth-zabbix'
+version '0.0.1'
+dependency 'puppetlabs/stdlib', '>=3.0.1'
+description "Managing Zabbix deployments, including configuration of zabbix bits"
