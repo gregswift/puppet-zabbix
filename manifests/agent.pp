@@ -1,26 +1,29 @@
 class zabbix::agent (
   $version_modifier = '20',
-  $zabbix_endpoint = '',
-  $servers = [],
-  $endpoint = '',
+  $zabbix_endpoint  = '',
+  $servers          = [],
+  $endpoint         = '',
 ) inherits zabbix {
+
   if $zabbix_endpoint != '' {
     $servers_real = [$zabbix_endpoint]
   } else {
     $servers_real = $servers
   }
+
   package { "zabbix-agent":
-    name => "zabbix${version_modifier}-agent",
+    name   => "zabbix${version_modifier}-agent",
     ensure => installed,
   }
 
   service { 'zabbix-agent':
-    enable => true,
-    ensure => running,
+    enable     => true,
+    ensure     => running,
     hasrestart => true,
-    hasstatus => true,
-    require => Package['zabbix-agent']
+    hasstatus  => true,
+    require    => Package['zabbix-agent']
   }
+
   file { "/etc/zabbix_agentd.conf":
     owner   => 'root',
     group   => 'root',
@@ -29,5 +32,7 @@ class zabbix::agent (
     content => template('zabbix/zabbix_agentd.conf.erb'),
     notify  => Service['zabbix-agent']
   }
-  zabbix_host($fqdn,$endpoint)
+
+  zabbix_host($fqdn, $endpoint)
+
 }
