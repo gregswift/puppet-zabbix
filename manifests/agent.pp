@@ -3,10 +3,6 @@
 # Configure a Zabbix agent
 #
 #
-# == IMPORTANT
-#
-# Currently you have to manually setup your database and import the schemas.
-#
 # == Parameters
 #
 # [*ensure*]
