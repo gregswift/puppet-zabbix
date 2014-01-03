@@ -1,18 +1,14 @@
 
 # == Define: zabbix::config
 #
-# Edit a setting in a zabbix config file, preferably you are using
-# the following resources directly, not this one.
+# Edit a setting in a zabbix config file.
+#
+# === IMPORTANT
+# You should not use this resource directly.  Use these:
 #
 #    zabbix::agent::config
 #    zabbix::server::config
 #    zabbix::proxy::config
-#
-#
-# === IMPORTANT
-#
-# You must add any file you want to reference into modules/sudo/files
-# other wise any call to this definition will fail.
 #
 #
 # === Parameters
@@ -31,21 +27,32 @@
 # * This is thus destructive and should be used with care.
 # Defaults to <tt>present</tt>.
 #
+# [*value*]
+# String. The value to set the config item to.
+#
 # [*type*]
-# String. Has to be either 'server', 'proxy' or 'agent'
+# String. Has to be either 'server', 'proxy' or 'agent'.
+#
+# [*context*]
+# String. The path to the zabbix config file you want to edit.
 #
 # === Examples
 #
 # * Shorten the cache timeout
 #
-# zabbix::config { 'timeout': value => '60' }
+# zabbix::config { 'agent-timeout':
+#   value => '60',
+#   type  => 'agent',
+# }
 #
 # * Remove the cache timeout setting
 #
-# zabbix::config { 'timeout': ensure => absent }
+# zabbix::config { 'agent-timeout':
+#   ensure => absent,
+#   type   => 'agent',
+# }
 #
 #
-# [ NO empty lines allowed between this and definition below for rdoc ]
 define zabbix::config (
   $ensure  = present,
   $value,
@@ -84,4 +91,5 @@ define zabbix::config (
     onlyif  => $onlyif,
     changes => $changes,
   }
+
 }
