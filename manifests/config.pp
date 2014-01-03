@@ -1,4 +1,3 @@
-
 # == Define: zabbix::config
 #
 # Edit a setting in a zabbix config file.
