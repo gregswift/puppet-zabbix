@@ -1,26 +1,30 @@
 class zabbix::server (
-  $database = 'pgsql',
+  $database         = 'pgsql',
   $version_modifier = '20',
-  $dbhost = '',
-  $dbpassword = '',
-  $dbuser = '',
-  $dbname = '',
-  $users = '', 
-  $endpoint = '',
-) inherits zabbix {
+  $dbhost,
+  $dbpassword,
+  $dbuser,
+  $dbname,
+  $users,
+  $endpoint,
+) {
 
-    $zbxsvr_pkg_names = ["zabbix${version_modifier}-server", "zabbix${version_modifier}-server-${database}", "zabbix${version_modifier}-web-${database}"]
+    $packages = [ "zabbix${version_modifier}-server",
+                  "zabbix${version_modifier}-server-${database}",
+                  "zabbix${version_modifier}-web-${database}"
+    ]
 
-    package { $zbxsvr_pkg_names:
+    package { $packages:
         ensure => latest,
     }
 
     service { 'zabbix-server':
-        enable => true,
-        ensure => running,
+        enable     => true,
+        ensure     => running,
         hasrestart => true,
-        hasstatus => true,
+        hasstatus  => true,
     }
+
     service { 'httpd':
         ensure => running,
         hasrestart => true,
@@ -31,30 +35,29 @@ class zabbix::server (
      owner   => 'root',
      group   => 'root',
      mode    => '0644',
-     require => Package[$zbxsvr_pkg_names],
+     require => Package[$packages],
      content => template('zabbix/zabbix.conf.erb'),
      notify  => Service['httpd'],
    }
-
    file { "/var/www/html/index.php":
      owner   => 'root',
      group   => 'root',
      mode    => '0644',
-     require => Package[$zbxsvr_pkg_names],
+     require => Package[$packages],
      content => template('zabbix/index.php.erb'),
    }
    file { "/usr/share/zabbix/images/general/zabbix.png":
      owner   => 'root',
      group   => 'root',
      mode    => '0644',
-     require => Package[$zbxsvr_pkg_names],
+     require => Package[$packages],
      content => template('zabbix/zabbix.png'),
    }   
    file { "/etc/zabbix_server.conf":
      owner   => 'root',
      group   => 'root',
      mode    => '0644',
-     require => Package[$zbxsvr_pkg_names],
+     require => Package[$packages],
      content => template('zabbix/zabbix_server.conf.erb'),
      notify  => Service['zabbix-server'],
    }
@@ -62,9 +65,10 @@ class zabbix::server (
      owner   => 'root',
      group   => 'root',
      mode    => '0644',
-     require => Package[$zbxsvr_pkg_names],
+     require => Package[$packages],
      content => template('zabbix/zabbix.conf.php.erb'),
      notify  => Service['httpd'],
    }
-   zabbix_syncusers($users,$endpoint)
+
+   zabbix_syncusers($users, $endpoint)
 }
