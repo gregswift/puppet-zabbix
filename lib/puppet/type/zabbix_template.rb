@@ -13,11 +13,11 @@ Puppet::Type.newtype(:zabbix_template) do
     end
   end
 
-  newproperty(:visible_name) do
+  newparam(:visible_name) do
     desc "Visible template name - currently must be 'friendly' name (e.g. Ethernet)"
   end
 
-  newproperty(:groups, :array_matching => :all) do
+  newparam(:groups, :array_matching => :all) do
     desc "The groups that this template will be in"
     def insync?(is)
       is.sort == should.sort
@@ -29,6 +29,10 @@ Puppet::Type.newtype(:zabbix_template) do
     def insync?(is)
       is.sort == should.sort
     end
+  end
+
+  newproperty(:macros, :array_matching => :all) do
+    desc "Macros that should be defined at the template level"
   end
 
 end
